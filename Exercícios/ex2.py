@@ -7,6 +7,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def plotar(V1, V2, V3, V4, titulo=''):
     plt.clf()
     plt.axis([0, 10, 0, 10])
@@ -50,6 +51,7 @@ def rotacionarPonto(ponto, angulo):
 
     return np.array([x, y])
 
+
 def rotacionar(pontos, angulo):
     _pontos = transladarParaPonto(pontos, [0, 0])
     _pontos = list(_pontos)
@@ -59,6 +61,7 @@ def rotacionar(pontos, angulo):
 
     return _pontos
 
+
 def escalar(pontos, escala):
     _pontos = []
     for ponto in pontos:
@@ -66,13 +69,14 @@ def escalar(pontos, escala):
 
     return _pontos
 
+
 if __name__ == '__main__':
     V1 = np.array([1, 1])
     V2 = np.array([1, 3])
     V3 = np.array([3, 1])
     V4 = np.array([3, 3])
 
-    _pontos = rotacionar([V1, V2, V3, V4], np.pi/4)
+    _pontos = rotacionar([V1, V2, V3, V4], np.pi / 4)
     _pontos = escalar(_pontos, 2)
     _pontos = transladarParaPonto(_pontos, [3, 0])
     print(_pontos)
