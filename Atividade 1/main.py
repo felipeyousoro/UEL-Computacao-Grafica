@@ -35,6 +35,13 @@ class Transformada2D:
 
         return _pontos
 
+    def escalaPonto(self, pontos, ponto, sx, sy):
+        _pontos = self.translacao(pontos, -ponto[0], -ponto[1])
+        _pontos = self.escala(_pontos, sx, sy)
+        _pontos = self.translacao(_pontos, ponto[0], ponto[1])
+
+        return _pontos
+
     def centroGeometrico(self, pontos):
         x = 0
         y = 0
