@@ -1,119 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-
-
-class Transformada2D:
-    def translacao(self, pontos, tx, ty):
-        matrizMultiplicacao = np.array([[1, 0, tx],
-                                        [0, 1, ty],
-                                        [0, 0, 1]], dtype=object)
-
-        _pontos = []
-        for ponto in pontos:
-            _pontos.append(np.dot(matrizMultiplicacao, ponto))
-
-        return _pontos
-
-    # Aplica a escala em relação a um conjunto de pontos
-    # Distorce a figura
-    def escala(self, pontos, sx, sy):
-        matrizMultiplicacao = np.array([[sx, 0, 0],
-                                        [0, sy, 0],
-                                        [0, 0, 1]], dtype=object)
-
-        _pontos = []
-        for ponto in pontos:
-            _pontos.append(np.dot(matrizMultiplicacao, ponto))
-
-        return _pontos
-
-    def escalaCentroGeometrico(self, pontos, sx, sy):
-        centro = self.centroGeometrico(pontos)
-        _pontos = self.translacao(pontos, -centro[0], -centro[1])
-        _pontos = self.escala(_pontos, sx, sy)
-        _pontos = self.translacao(_pontos, centro[0], centro[1])
-
-        return _pontos
-
-    def escalaPonto(self, pontos, x, y, sx, sy):
-        _pontos = self.translacao(pontos, -x, -y)
-        _pontos = self.escala(_pontos, sx, sy)
-        _pontos = self.translacao(_pontos, x, y)
-
-        return _pontos
-
-    def centroGeometrico(self, pontos):
-        x = 0
-        y = 0
-        for ponto in pontos:
-            x += ponto[0]
-            y += ponto[1]
-
-        return np.array([x / len(pontos), y / len(pontos)])
-
-    def cisalhamento(self, pontos, cx, cy):
-        matrizMultiplicacao = np.array([[1, cx, 0],
-                                        [cy, 1, 0],
-                                        [0, 0, 1]], dtype=object)
-
-        _pontos = []
-        for ponto in pontos:
-            _pontos.append(np.dot(matrizMultiplicacao, ponto))
-
-        return _pontos
-
-    def reflexaoEixo(self, pontos, eixo='x'):
-        if eixo == 'x':
-            matrizMultiplicacao = np.array([[1, 0, 0],
-                                            [0, -1, 0],
-                                            [0, 0, 1]], dtype=object)
-        ## Y
-        else:
-            matrizMultiplicacao = np.array([[-1, 0, 0],
-                                            [0, 1, 0],
-                                            [0, 0, 1]], dtype=object)
-
-        _pontos = []
-        for ponto in pontos:
-            _pontos.append(np.dot(matrizMultiplicacao, ponto))
-
-        return _pontos
-
-    def reflexaoLinha(self, pontos, linha='x'):
-        if linha == 'x':
-            matrizMultiplicacao = np.array([[0, 1, 0],
-                                            [1, 0, 0],
-                                            [0, 0, 1]], dtype=object)
-        ## -X
-        else:
-            matrizMultiplicacao = np.array([[0, -1, 0],
-                                            [-1, 0, 0],
-                                            [0, 0, 1]], dtype=object)
-
-        _pontos = []
-        for ponto in pontos:
-            _pontos.append(np.dot(matrizMultiplicacao, ponto))
-
-        return _pontos
-
-    def rotacao(self, pontos, angulo):
-        matrizMultiplicacao = np.array([[np.cos(angulo), -np.sin(angulo), 0],
-                                        [np.sin(angulo), np.cos(angulo), 0],
-                                        [0, 0, 1]], dtype=object)
-
-        _pontos = []
-        for ponto in pontos:
-            _pontos.append(np.dot(matrizMultiplicacao, ponto))
-
-        return _pontos
-
-    def rotacaoPonto(self, pontos, x, y, angulo):
-        _pontos = self.translacao(pontos, -x, -y)
-        _pontos = self.rotacao(_pontos, angulo)
-        _pontos = self.translacao(_pontos, x, y)
-
-        return _pontos
-
+import transformada2d
 
 def plotar(V1, V2, V3):
     plt.axis('equal')
@@ -141,9 +28,9 @@ if __name__ == "__main__":
                         [1],
                         [1]], dtype=object)]
 
-    transformada = Transformada2D()
+    transformada = transformada2d.Transformada2D()
 
-    _pontos = transformada.rotacaoPonto(pontos, 3, 3, np.pi / 2)
+    _pontos = transformada2d.rotacaoPonto(pontos, 2, 2, np.pi/2)
 
     plotar(pontos[0], pontos[1], pontos[2])
     plotar(_pontos[0], _pontos[1], _pontos[2])
