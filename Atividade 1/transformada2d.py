@@ -50,6 +50,7 @@ class Transformada2D:
 
         return np.dot(matriz_composta, ponto)
 
+    # O Angulo deve ser passado em radianos
     def rotacao(self, ponto, angulo):
         matriz_rotacao = np.array([[np.cos(angulo), -np.sin(angulo), 0],
                                    [np.sin(angulo), np.cos(angulo), 0],
@@ -57,6 +58,7 @@ class Transformada2D:
 
         return np.dot(matriz_rotacao, ponto)
 
+    # O Angulo deve ser passado em radianos
     def rotacaoPonto(self, ponto, referencia, angulo):
         matriz_translacao = np.array([[1, 0, referencia[0]],
                                       [0, 1, referencia[1]],
