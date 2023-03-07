@@ -35,10 +35,10 @@ class Transformada2D:
 
         return _pontos
 
-    def escalaPonto(self, pontos, ponto, sx, sy):
-        _pontos = self.translacao(pontos, -ponto[0], -ponto[1])
+    def escalaPonto(self, pontos, x, y, sx, sy):
+        _pontos = self.translacao(pontos, -x, -y)
         _pontos = self.escala(_pontos, sx, sy)
-        _pontos = self.translacao(_pontos, ponto[0], ponto[1])
+        _pontos = self.translacao(_pontos, x, y)
 
         return _pontos
 
@@ -96,6 +96,24 @@ class Transformada2D:
 
         return _pontos
 
+    def rotacao(self, pontos, angulo):
+        matrizMultiplicacao = np.array([[np.cos(angulo), -np.sin(angulo), 0],
+                                        [np.sin(angulo), np.cos(angulo), 0],
+                                        [0, 0, 1]], dtype=object)
+
+        _pontos = []
+        for ponto in pontos:
+            _pontos.append(np.dot(matrizMultiplicacao, ponto))
+
+        return _pontos
+
+    def rotacaoPonto(self, pontos, x, y, angulo):
+        _pontos = self.translacao(pontos, -x, -y)
+        _pontos = self.rotacao(_pontos, angulo)
+        _pontos = self.translacao(_pontos, x, y)
+
+        return _pontos
+
 
 def plotar(V1, V2, V3):
     plt.axis('equal')
@@ -109,8 +127,8 @@ def plotar(V1, V2, V3):
 
     plt.show()
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     pontos = [np.array([[1],
                         [1],
                         [1]], dtype=object),
@@ -125,9 +143,7 @@ if __name__ == "__main__":
 
     transformada = Transformada2D()
 
-    _pontos = transformada.reflexaoLinha(pontos, '-x')
+    _pontos = transformada.rotacaoPonto(pontos, 3, 3, np.pi / 2)
 
     plotar(pontos[0], pontos[1], pontos[2])
     plotar(_pontos[0], _pontos[1], _pontos[2])
-
-
