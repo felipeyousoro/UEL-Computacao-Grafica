@@ -42,8 +42,8 @@ class Transformada2D:
                                   [0, sy, 0],
                                   [0, 0, 1]], dtype=object)
 
-        matriz_translacao_inversa = np.array([[1, 0, -x],
-                                              [0, 1, -y],
+        matriz_translacao_inversa = np.array([[1, 0, -referencia[0]],
+                                              [0, 1, -referencia[1]],
                                               [0, 0, 1]], dtype=object)
 
         matriz_composta = np.dot(matriz_translacao, np.dot(matriz_escala, matriz_translacao_inversa))
@@ -66,8 +66,8 @@ class Transformada2D:
                                    [np.sin(angulo), np.cos(angulo), 0],
                                    [0, 0, 1]], dtype=object)
 
-        matriz_translacao_inversa = np.array([[1, 0, -x],
-                                              [0, 1, -y],
+        matriz_translacao_inversa = np.array([[1, 0, -referencia[0]],
+                                              [0, 1, -referencia[1]],
                                               [0, 0, 1]], dtype=object)
 
         matriz_composta = np.dot(matriz_translacao, np.dot(matriz_rotacao, matriz_translacao_inversa))
