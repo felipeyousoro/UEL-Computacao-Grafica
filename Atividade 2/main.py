@@ -21,7 +21,7 @@ def DDA(x1, y1, x2, y2, screen):
         x += x_inc
         y += y_inc
 
-
+#teste
 if __name__ == "__main__":
     pygame.init()
     screen = pygame.display.set_mode((640, 480))
