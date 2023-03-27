@@ -22,7 +22,6 @@ def DDA(x1, y1, x2, y2):
     points = []
 
     while x != x2 and y != y2:
-        #append round to avoid float values
         points.append((round(x), round(y)))
         x += x_inc
         y += y_inc
@@ -104,7 +103,6 @@ if __name__ == "__main__":
 
     pygame.init()
     screen = pygame.display.set_mode((500, 500))
-    pygame.display.set_caption("DDA vs Bresenham")
     screen.fill(WHITE)
     pygame.display.flip()
 
