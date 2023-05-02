@@ -22,29 +22,29 @@ void handle_display() {
 
 void handle_keyboard(unsigned char key, int x, int y) {
     switch (key) {
-        // case 'w':
-        // case 'W':
-        //     angles[0] += 10.0;
-        //     break;
+        case 'w':
+        case 'W':
+            angles[0] += 10.0;
+            break;
 
-        // case 's':
-        //     angles[0] -= 10.0;
-        //     break;
-        // case 'S':
-        //     angles[0] -= 10.0;
-        //     break;
+        case 's':
+            angles[0] -= 10.0;
+            break;
+        case 'S':
+            angles[0] -= 10.0;
+            break;
 
-        // case 'a':
-        // case 'A':
-        //     angles[0] += 10.0;
-        //     glRotatef(angles[0], 1.0, 0.0, 0.0);
-        //     break;
+        case 'a':
+        case 'A':
+            angles[0] += 10.0;
+            glRotatef(angles[0], 1.0, 0.0, 0.0);
+            break;
 
-        // case 'd':
-        // case 'D':
-        //     angles[0] -= 10.0;
-        //     glRotatef(angles[0], 1.0, 0.0, 0.0);
-        //     break;
+        case 'd':
+        case 'D':
+            angles[0] -= 10.0;
+            glRotatef(angles[0], 1.0, 0.0, 0.0);
+            break;
 
         default:
             break;
@@ -76,28 +76,6 @@ void handle_special_keyboard(int key, int x, int y) {
     }
 }
 
-void handle_timer(int value) {
-    // switch (option) {
-    //     case 'w':
-    //         angles[0] += 10.0;
-    //         break;
-    //     case 's':
-    //         angles[0] -= 10.0;
-    //         break;
-    //     case 'a':
-    //         angles[1] += 10.0;
-    //         break;
-    //     case 'd':
-    //         angles[1] -= 10.0;
-    //         break;
-    //     default:
-    //         break;
-    // }
-
-    glutPostRedisplay();
-    glutTimerFunc(100, handle_timer, 1);
-}
-
 int main(int argc, char* argv[]) {
     glutInit(&argc, argv);
 
@@ -115,8 +93,6 @@ int main(int argc, char* argv[]) {
     glutDisplayFunc(handle_display);
     glutKeyboardFunc(handle_keyboard);
     glutSpecialFunc(handle_special_keyboard);
-
-    glutTimerFunc(100, handle_timer, 1);
 
     glutMainLoop();
 
