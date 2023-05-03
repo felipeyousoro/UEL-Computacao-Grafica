@@ -8,15 +8,38 @@
 #define INIT_POSITION 100
 
 GLfloat angles[3] = {0.0, 0.0, 0.0};
-int option;
+
+float scale = 1.0;
+float translation[3] = {0.0, 0.0, 0.0};
+
+void reset_transformations() {
+    angles[0] = 0.0;
+    angles[1] = 0.0;
+    angles[2] = 0.0;
+
+    scale = 1.0;
+
+    translation[0] = 0.0;
+    translation[1] = 0.0;
+    translation[2] = 0.0;
+}
 
 void handle_display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(0, 0, 1);
 
-    glutWireSphere(0.5, 50, 50);
+    glTranslatef(translation[0], translation[1], translation[2]);
+
+    glScalef(scale, scale, scale);
     
-    glLoadIdentity();    
+    glRotatef(angles[0], 1.0, 0.0, 0.0);
+    glRotatef(angles[1], 0.0, 1.0, 0.0);
+    glRotatef(angles[2], 0.0, 0.0, 1.0);
+
+    glutWireSphere(0.3, 10, 10);
+    
+    reset_transformations();
+    
     glutSwapBuffers();
 }
 
@@ -24,56 +47,51 @@ void handle_keyboard(unsigned char key, int x, int y) {
     switch (key) {
         case 'w':
         case 'W':
-            angles[0] += 10.0;
+            scale = 1.1;
             break;
-
         case 's':
-            angles[0] -= 10.0;
-            break;
         case 'S':
-            angles[0] -= 10.0;
+            scale = 0.9;
             break;
 
         case 'a':
         case 'A':
-            angles[0] += 10.0;
-            glRotatef(angles[0], 1.0, 0.0, 0.0);
+            angles[1] += 10.0;
             break;
 
         case 'd':
         case 'D':
-            angles[0] -= 10.0;
-            glRotatef(angles[0], 1.0, 0.0, 0.0);
+            angles[1] -= 10.0;
             break;
 
         default:
             break;
 
     }
+
+    glutPostRedisplay();
 }
 
 void handle_special_keyboard(int key, int x, int y) {
     switch (key) {
         case GLUT_KEY_UP:
-            angles[0] += 10.0;
-            glTranslatef(10.0, 0.0, 0.0);
+            translation[1] += 0.1;
             break;
         case GLUT_KEY_DOWN:
-            angles[0] -= 10.0;
-            glTranslatef(-10.0, 0.0, 0.0);
+            translation[1] -= 0.1;
             break;
         case GLUT_KEY_LEFT:
-            angles[1] += 10.0;
-            glTranslatef(0.0, 10.0, 0.0);
+            translation[0] -= 0.1;
             break;
         case GLUT_KEY_RIGHT:
-            angles[1] -= 10.0;
-            glTranslatef(0.0, -10.0, 0.0);
+            translation[0] += 0.1;
             break;
         default:
-            printf("Invalid key pressed: %d\n", key);
             break;
     }
+
+    glutPostRedisplay();
+
 }
 
 int main(int argc, char* argv[]) {
@@ -85,7 +103,6 @@ int main(int argc, char* argv[]) {
     glutCreateWindow("Atividade 4: Transformacoes Geometricas");
 
     glClearColor(1.0,1.0,1.0,0.0);
-    glEnable(GL_DEPTH_TEST); 
     glColor3f(0.0f, 0.0f, 0.0f);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
