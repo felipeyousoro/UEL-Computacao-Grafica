@@ -1,5 +1,4 @@
 #include <GL/glut.h>
-
 #include <stdio.h>
 
 #define WIDTH 700
